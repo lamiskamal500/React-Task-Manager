@@ -108,17 +108,31 @@ function App() {
           marginTop: "1rem",
         }}
       >
-        {filteredTasks.map((task) => (
-          <CardContainer
-            key={task.id}
-            title={task.title}
-            description={task.description}
-            completed={task.completed}
-            onClickEdit={() => handleEditTask(task)}
-            onClickDelete={() => dispatch(removeTask(task.id))}
-            onClickDone={() => dispatch(toggleTaskCompletion(task.id))}
-          />
-        ))}
+        {filteredTasks.length === 0 ? (
+          <Typography
+            variant="body1"
+            sx={{
+              textAlign: "center",
+              color: "#888",
+              fontStyle: "italic",
+              marginTop: "2rem",
+            }}
+          >
+            No tasks available. Click "New Task" to add one.
+          </Typography>
+        ) : (
+          filteredTasks.map((task) => (
+            <CardContainer
+              key={task.id}
+              title={task.title}
+              description={task.description}
+              completed={task.completed}
+              onClickEdit={() => handleEditTask(task)}
+              onClickDelete={() => dispatch(removeTask(task.id))}
+              onClickDone={() => dispatch(toggleTaskCompletion(task.id))}
+            />
+          ))
+        )}
       </Box>
       <AddForm open={open} handleClose={handleCloseForm} formEdit={formEdit} />
     </Box>
